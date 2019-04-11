@@ -8,7 +8,20 @@ to the `ROS_PACKAGE_PATH` environment variable[1], or place it in the
 `src` subdirectory of your catkin workspace[2].
 
 Information relevant to multiple AMR robot types is included in this
-package.  
+package. 
+
+Added content
+------
+
+The changes made to this repo are for running the simulation at higher speeds. This is useful for training reinforcement learning agents. 
+By default the agent will run at higher speed (x5). But you can select if you want to run the sim at normal or faster speed by passing the parameter: 
+
+```
+roslaunch amr_robots_gazebo empty_world.launch fast:=false # runs slower
+or
+roslaunch amr_robots_gazebo empty_world.launch fast:=true# runs faster
+```
+
 
 URDF
 ----

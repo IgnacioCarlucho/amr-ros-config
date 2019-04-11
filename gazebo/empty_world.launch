@@ -10,6 +10,8 @@
   <arg name="debug" default="false"/>
   <arg name="verbose" default="true"/>
   <arg name="world" default="$(find amr_robots_gazebo)/empty.world" />
+  <arg name="slow_world" default="$(find amr_robots_gazebo)/slow_empty.world" />
+  <arg name="fast" default="true"/>
   <arg name="urdf" default="$(find amr_robots_description)/urdf/pioneer3at.urdf" />
 
   <param name="robot_description" command="$(find xacro)/xacro.py $(arg urdf)" />
@@ -32,10 +34,13 @@
   <arg     if="$(arg verbose)" name="command_arg3" value="--verbose"/>
   <arg unless="$(arg debug)" name="script_type" value="gzserver"/>
   <arg     if="$(arg debug)" name="script_type" value="debug"/>
+  <arg unless="$(arg fast)" name="world_type" value="$(find amr_robots_gazebo)/slow_empty.world"/>
+  <arg     if="$(arg fast)" name="world_type" value="$(find amr_robots_gazebo)/empty.world"/>
 
   <!-- start gazebo server-->
+  
   <node name="gazebo" pkg="gazebo_ros" type="$(arg script_type)" respawn="false" output="screen"
-	args="$(arg command_arg1) $(arg command_arg2) $(arg command_arg3) $(arg world)" />
+	args="$(arg command_arg1) $(arg command_arg2) $(arg command_arg3) $(arg world_type)" />
 	
   <!-- start gazebo client -->
   <group if="$(arg gui)">
